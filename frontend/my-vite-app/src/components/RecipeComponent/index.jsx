@@ -14,7 +14,7 @@ class RecipeComponent extends Component {
     darkMode: false,
   };
 
-  
+  const backendUrl = 'https://recipe-full-stack-project-backend-1.vercel.app/'
   componentDidMount() {
     this.fetchRecipes();
   }
@@ -22,7 +22,7 @@ class RecipeComponent extends Component {
 
   fetchRecipes = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/recipes");
+      const response = await axios.get(`${backendUrl}`);
       this.setState({ recipes: response.data });
     } catch (error) {
       console.error("Error fetching recipes:", error);
@@ -33,7 +33,7 @@ class RecipeComponent extends Component {
 
   updateRecipe = async () => {
     try {
-      await axios.put(`http://localhost:3000/recipes/${this.state.selectedRecipe._id}`, this.state.selectedRecipe);
+      await axios.put(`${backendUrl}/${this.state.selectedRecipe._id}`, this.state.selectedRecipe);
       this.setState({ selectedRecipe: null });
       this.fetchRecipes();
     } catch (error) {
@@ -45,7 +45,7 @@ class RecipeComponent extends Component {
 
   addRecipe = async () => {
     try {
-      await axios.post("http://localhost:3000/recipes", this.state.newRecipe);
+      await axios.post("${backendUrl}/recipes", this.state.newRecipe);
       this.setState({ newRecipe: { name: "", category: "", ingredients: "", instructions: "", image: "" } });
       this.fetchRecipes();
     } catch (error) {
