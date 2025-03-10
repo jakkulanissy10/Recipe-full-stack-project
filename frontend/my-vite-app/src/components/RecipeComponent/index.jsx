@@ -13,7 +13,7 @@ class RecipeComponent extends Component {
     darkMode: false,
   };
 
-  backendUrl = 'https://recipe-full-stack-project-backend-1.vercel.app/'; // Define backendUrl
+  backendUrl = 'https://recipe-full-stack-project-backend-1.vercel.app'; // Define backendUrl
 
   componentDidMount() {
     this.fetchRecipes();
