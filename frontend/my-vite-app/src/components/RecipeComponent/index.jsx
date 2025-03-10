@@ -22,7 +22,7 @@ class RecipeComponent extends Component {
 
   fetchRecipes = async () => {
     try {
-      const response = await axios.get(`${backendUrl}`);
+      const response = await axios.get(`${backendUrl}/recipes);
       this.setState({ recipes: response.data });
     } catch (error) {
       console.error("Error fetching recipes:", error);
