@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 app.use(cors({
-  origin: 'https://recipe-full-stack-project-frontend-1.vercel.app', // Replace with your frontend URL
+  origin: 'https://recipe-full-stack-project-frontend-1.vercel.app/', // Replace with your frontend URL
   methods: ['GET', 'POST', 'PUT'], // Allow specific HTTP methods
 }));
 
