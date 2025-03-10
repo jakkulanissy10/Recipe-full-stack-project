@@ -3,9 +3,8 @@ import axios from "axios";
 import { MdLightMode, MdDarkMode } from "react-icons/md"; // Import both icons
 import './style.css';
 
-class RecipeComponent extends Component { 
-
-  //State 
+class RecipeComponent extends Component {
+  // State
   state = {
     recipes: [],
     newRecipe: { name: "", category: "", ingredients: "", instructions: "", image: "" },
@@ -14,38 +13,37 @@ class RecipeComponent extends Component {
     darkMode: false,
   };
 
-  const backendUrl = 'https://recipe-full-stack-project-backend-1.vercel.app/'
+  backendUrl = 'https://recipe-full-stack-project-backend-1.vercel.app/'; // Define backendUrl
+
   componentDidMount() {
     this.fetchRecipes();
   }
-//GET method 
 
+  // GET method
   fetchRecipes = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/recipes);
+      const response = await axios.get(`${this.backendUrl}/recipes`);
       this.setState({ recipes: response.data });
     } catch (error) {
       console.error("Error fetching recipes:", error);
     }
   };
 
-  //PUT method
-
+  // PUT method
   updateRecipe = async () => {
     try {
-      await axios.put(`${backendUrl}/${this.state.selectedRecipe._id}`, this.state.selectedRecipe);
+      await axios.put(`${this.backendUrl}/recipes/${this.state.selectedRecipe._id}`, this.state.selectedRecipe);
       this.setState({ selectedRecipe: null });
       this.fetchRecipes();
     } catch (error) {
       console.error("Error updating recipe:", error);
     }
-  }; 
+  };
 
-  //POST method
-
+  // POST method
   addRecipe = async () => {
     try {
-      await axios.post("${backendUrl}/recipes", this.state.newRecipe);
+      await axios.post(`${this.backendUrl}/recipes`, this.state.newRecipe);
       this.setState({ newRecipe: { name: "", category: "", ingredients: "", instructions: "", image: "" } });
       this.fetchRecipes();
     } catch (error) {
@@ -53,9 +51,7 @@ class RecipeComponent extends Component {
     }
   };
 
-
-
-/* Handlers */
+  /* Handlers */
 
   handleChange = (e) => {
     this.setState({
@@ -66,8 +62,6 @@ class RecipeComponent extends Component {
   selectRecipe = (recipe) => {
     this.setState({ selectedRecipe: recipe });
   };
-
- 
 
   handleUpdateChange = (e) => {
     this.setState({
@@ -81,34 +75,27 @@ class RecipeComponent extends Component {
 
   toggleTheme = () => {
     this.setState((prevState) => ({ darkMode: !prevState.darkMode }));
-  }; 
+  };
 
-  //Render
-
-  render() { 
-
-    const {recipes,newRecipe,selectedRecipe,showAddForm,darkMode} = this.state
-    return ( 
-
-      // Toggling between dark mode and light mode//
-
+  // Render
+  render() {
+    const { recipes, newRecipe, selectedRecipe, showAddForm, darkMode } = this.state;
+    return (
       <div className={darkMode ? "dark-mode" : "light-mode"}>
         <div className="theme-toggle" onClick={this.toggleTheme}>
           {darkMode ? (
-            <MdLightMode size={30}  color = "white" /> // Light mode icon
+            <MdLightMode size={30} color="white" /> // Light mode icon
           ) : (
             <MdDarkMode size={30} /> // Dark mode icon
           )}
         </div>
 
-        <h1 style={{ color: darkMode ? "white" : "grey", textAlign: "center", "font-size": "bold"}}>Recipe Manager</h1> 
-
-     {/* The data is retrieved from the backend using the GET method. */}
+        <h1 style={{ color: darkMode ? "white" : "grey", textAlign: "center", fontSize: "bold" }}>Recipe Manager</h1>
 
         {Object.entries(recipes).map(([category, recipes]) => (
           <div key={category}>
             <div className="receipeCent">
-              <h3 style={{ color: this.state.darkMode ? "lightblue" : "grey", textAlign: "center", "fontSize": "bold"}}>{category}</h3>
+              <h3 style={{ color: darkMode ? "lightblue" : "grey", textAlign: "center", fontSize: "bold" }}>{category}</h3>
               <div className="recipeContainer">
                 {recipes.map((recipe) => (
                   <div key={recipe._id} className="recipeCard">
@@ -118,8 +105,6 @@ class RecipeComponent extends Component {
                       <p>{recipe.ingredients}</p>
                       <p>{recipe.instructions}</p>
                     </div>
-
-                 {/* When the recipe card is clicked, it shows the update button. It is used to update the existing data. */}
 
                     {selectedRecipe && (
                       <div>
@@ -168,11 +153,9 @@ class RecipeComponent extends Component {
           </div>
         ))}
 
-{/* If we want to add the new recipe, click on the "Add" button, then it shows the input fields, otherwise, it is hidden */}
-
         <div className="addBtn">
           <button onClick={this.toggleAddForm}>{showAddForm ? "Cancel" : "Add Recipe"}</button>
-          {this.state.showAddForm && (
+          {showAddForm && (
             <div>
               <input
                 type="text"
