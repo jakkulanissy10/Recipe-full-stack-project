@@ -13,7 +13,7 @@ class RecipeComponent extends Component {
     darkMode: false,
   };
 
-  backendUrl = 'https://recipe-full-stack-project-backend-1.onrender.com'; // Define backendUrl
+
 
   componentDidMount() {
     this.fetchRecipes();
@@ -22,7 +22,7 @@ class RecipeComponent extends Component {
   // GET method
   fetchRecipes = async () => {
     try {
-      const response = await axios.get(`${this.backendUrl}/recipes`);
+      const response = await axios.get(`https://recipe-full-stack-project-backend-1.onrender.com/recipes`);
       this.setState({ recipes: response.data });
     } catch (error) {
       console.error("Error fetching recipes:", error);
@@ -32,7 +32,7 @@ class RecipeComponent extends Component {
   // PUT method
   updateRecipe = async () => {
     try {
-      await axios.put(`${this.backendUrl}/recipes/${this.state.selectedRecipe._id}`, this.state.selectedRecipe);
+      await axios.put(`https://recipe-full-stack-project-backend-1.onrender.com/recipes/${this.state.selectedRecipe._id}`, this.state.selectedRecipe);
       this.setState({ selectedRecipe: null });
       this.fetchRecipes();
     } catch (error) {
@@ -43,7 +43,7 @@ class RecipeComponent extends Component {
   // POST method
   addRecipe = async () => {
     try {
-      await axios.post(`${this.backendUrl}/recipes`, this.state.newRecipe);
+      await axios.post(`https://recipe-full-stack-project-backend-1.onrender.com/recipes`, this.state.newRecipe);
       this.setState({ newRecipe: { name: "", category: "", ingredients: "", instructions: "", image: "" } });
       this.fetchRecipes();
     } catch (error) {
