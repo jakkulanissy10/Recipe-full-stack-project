@@ -8,7 +8,8 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://create-newrecipe-frontend-project.onrender.com', // Allow frontend running on localhost:5173
+  origin: "http://localhost:5173", 
+  "https://create-newrecipe-frontend-project.onrender.com"
   methods: ['GET', 'POST', 'PUT'], // Allowed HTTP methods
 }));
 
