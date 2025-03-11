@@ -6,12 +6,11 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-const cors = require('cors');
-app.use(cors({
-  origin: 'https://recipe-full-stack-project-frontend-1.vercel.app/', // Replace with your frontend URL
-  methods: ['GET', 'POST', 'PUT'], // Allow specific HTTP methods
-}));
 
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow frontend running on localhost:5173
+  methods: ['GET', 'POST', 'PUT'], // Allowed HTTP methods
+}));
 
 const PORT = process.env.PORT || 3000;
 const DB_USER = process.env.DB_USER;
